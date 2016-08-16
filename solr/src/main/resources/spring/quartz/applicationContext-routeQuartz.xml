@@ -6,67 +6,32 @@
 	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.2.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
 	
 	<context:property-placeholder location="classpath:prop/quartz/quartzConfig.properties"	ignore-unresolvable="true"/>
 	<!-- 设置JOB -->
 	
-	<!-- 渠道模式：每天签到 总银联-->
-	<bean id="cupsSignQuartz" class="com.xinguodu.rule.quartz.CSignQuartz">
-		<property name="channelNo" value="15"/>
-	</bean>
-	<!-- 迅联 -->
-	<bean id="xlSignQuartz" class="com.xinguodu.rule.quartz.CSignQuartz">
-		<property name="channelNo" value="25"/>
-	</bean>
+<!-- 	<bean id="helloJob" class="com.jo.demo.quartz.HelloJob"/> -->
 	
-	<!-- 终端模式：需要签到的终端-->
-	<bean id="gzSignQuartz" class="com.xinguodu.rule.quartz.TSignNeedQuartz">
-		<property name="channelNo" value="9"/>
-	</bean>
-	
-	<bean id="szSignQuartz" class="com.xinguodu.rule.quartz.TSignNeedQuartz">
-		<property name="channelNo" value="14"/>
-	</bean>
-	
+	<bean id="joQuartzJob" class="com.jo.demo.quartz.JoQuartzJob"/>
 	
 	<!-- 指定定时执行方法 -->
-	<bean id="cupsJobMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-		<property name="targetObject">
-			<ref bean="cupsSignQuartz"/>
-		</property>
-		<property name="targetMethod">
-			<!-- 要执行的方法名称 -->
-			<value>execute</value>
-		</property>
-	</bean>
+<!-- 	<bean id="helloJobMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> -->
+<!-- 		<property name="targetObject"> -->
+<!-- 			<ref bean="helloJob"/> -->
+<!-- 		</property> -->
+<!-- 		<property name="targetMethod"> -->
+			<!-- 要执行的方法名称 --> 
+<!-- 			<value>execute</value> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
 	
-	<bean id="xlJobMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	<bean id="joQuartzJobMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="targetObject">
-			<ref bean="xlSignQuartz"/>
-		</property>
-		<property name="targetMethod">
-			<!-- 要执行的方法名称 -->
-			<value>execute</value>
-		</property>
-	</bean>
-	
-	<bean id="gzJobMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-		<property name="targetObject">
-			<ref bean="gzSignQuartz"/>
-		</property>
-		<property name="targetMethod">
-			<!-- 要执行的方法名称 -->
-			<value>execute</value>
-		</property>
-	</bean>
-	
-	<bean id="szJobMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-		<property name="targetObject">
-			<ref bean="szSignQuartz"/>
+			<ref bean="joQuartzJob"/>
 		</property>
 		<property name="targetMethod">
 			<!-- 要执行的方法名称 -->
@@ -76,34 +41,22 @@
 	
 	
 	<!-- ======================== 调度触发器 ======================== -->
-	<bean id="cupsTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-		<property name="jobDetail" ref="cupsJobMethod"/>
-		<property name="cronExpression" value="${cupsSignQuartz.cronExpression}"/>
-	</bean>
+<!-- 	<bean id="helloTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"> -->
+<!-- 		<property name="jobDetail" ref="helloJobMethod"/> -->
+<!-- 		<property name="cronExpression" value="${hello.cronExpression}"/> -->
+<!-- 	</bean> -->
 	
-	<bean id="xlTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-		<property name="jobDetail" ref="xlJobMethod"/>
-		<property name="cronExpression" value="${xlSignQuartz.cronExpression}"/>
-	</bean>
-	
-	<bean id="gzTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-		<property name="jobDetail" ref="gzJobMethod"/>
-		<property name="cronExpression" value="${gzSignQuartz.cronExpression}"/>
-	</bean>
-	
-	<bean id="szTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-		<property name="jobDetail" ref="szJobMethod"/>
-		<property name="cronExpression" value="${szSignQuartz.cronExpression}"/>
+	<bean id="joQuartzTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="joQuartzJobMethod"/>
+		<property name="cronExpression" value="${joQuartz.cronExpression}"/>
 	</bean>
 	
 	<!-- ======================== 调度工厂 ======================== -->
 	<bean id="schedulerFactory" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" >
 		<property name="triggers">
 			<list>
-				<ref bean="cupsTriggerBean"/>
-				<ref bean="xlTriggerBean"/>		
-				<ref bean="gzTriggerBean"/>
-				<ref bean="szTriggerBean"/>
+<!-- 				<ref bean="helloTriggerBean"/> -->
+				<ref bean="joQuartzTriggerBean"/>
 			</list>
 		</property>
 	</bean>

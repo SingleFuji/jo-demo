@@ -14,7 +14,7 @@
     http://www.springframework.org/schema/util/spring-util-4.2.xsd">
 	<!-- 读取jedis配置文件； 这里可以不用配置，-dao已经配置了扫描配置文件 -->
 	<!-- <context:property-placeholder location="classpath:/properties/*.properties"/> -->
-	<context:property-placeholder location="classpath:redis.properties"
+	<context:property-placeholder location="classpath:prop/redis/redis.properties"
 		ignore-unresolvable="true" />
 	<!-- 连接池配置 -->
 	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
@@ -41,9 +41,9 @@
 	</bean>
 
 	<!-- redis集群 -->
-	<bean id="redisClusterConfig" class="com.xinguodu.trade.cache.redis.CacheRedisClusterConfig">
-		<constructor-arg name="config" value="${cache.redis.crm.config}" />
-		<constructor-arg name="maxRedirects" value="${cache.redis.crm.maxRedirects}" />
+	<bean id="redisClusterConfig" class="com.jo.demo.redis.CacheRedisClusterConfig">
+		<constructor-arg name="config" value="${redis.config}" />
+		<constructor-arg name="maxRedirects" value="${redis.maxRedirects}" />
 	</bean>
 
 	<bean id="jedisConnectionFactory"

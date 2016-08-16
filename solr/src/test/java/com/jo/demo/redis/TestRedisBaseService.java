@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.jo.demo.TestBase;
+
 public class TestRedisBaseService extends TestBase {
 
 	private static final String LRBIND_KEY = "CRM:LRMAP*";

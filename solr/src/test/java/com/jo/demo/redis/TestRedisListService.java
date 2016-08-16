@@ -5,6 +5,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.jo.demo.TestBase;
 import com.jo.demo.po.Bin;
 
 public class TestRedisListService extends TestBase {

@@ -1,8 +1,12 @@
-package com.jo.demo.redis;
+package com.jo.demo;
 
 import org.junit.Before;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.jo.demo.redis.IRedisListService;
+import com.jo.demo.redis.IRedisStringService;
+import com.jo.demo.redis.RedisBaseService;
 
 public class TestBase {
 
