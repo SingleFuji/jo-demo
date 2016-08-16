@@ -41,7 +41,7 @@
 		<!-- sql DEBUG -->
 		<logger name="org.mybatis" level="DEBUG" additivity="true" />
 				
-		<Root level="ERROR">
+		<Root level="DEBUG">
 			<!-- <AppenderRef ref="Async" /> -->
 			<AppenderRef ref="Console" />
 			<AppenderRef ref="RollingFile" />
