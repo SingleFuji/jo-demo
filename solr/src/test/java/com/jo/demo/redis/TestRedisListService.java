@@ -44,5 +44,5 @@ public class TestRedisListService extends TestBase {
 		Assert.assertNotNull(binList);
 		System.out.println(binList.toString());
 	}
-
+	
 }
