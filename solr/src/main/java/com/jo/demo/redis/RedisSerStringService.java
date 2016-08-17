@@ -7,6 +7,8 @@ import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 
+import com.jo.demo.common.Constants;
+
 
 /**
  * redis处理类

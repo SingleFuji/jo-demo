@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration status="INFO">
+	<Properties>
+		<!-- set services -->
+		<Property name="service">jo_demo</Property>
+		<Property name="filename">logs/demo.log</Property>
+	</Properties>
+	<Appenders>
+		<!-- Console -->
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS}  [%t] %-5p %-20c - %m%n"/>
+		</Console>
+		<!-- flume -->
+		<!-- <Flume name="flume" ignoreExceptions="true" compress="false" type="avro" dataDir="InMemory">
+            IP:port
+			<Agents hosts="172.17.4.203:41414" />
+	    	<RpcLayout  Charset="UTF-8"/>
+	    </Flume> -->
+		<!-- date split -->
+		<RollingFile name="RollingFile" fileName="${filename}" filePattern="${filename}.%d{yyyy-MM-dd_HH}-%i.log">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss,SSS}  [%t] %-5p %-20c - %m%n" />
+			<Policies>
+		    	<TimeBasedTriggeringPolicy  interval="1" modulate="true" />
+		    	<SizeBasedTriggeringPolicy size="50 MB"/>
+		    </Policies>
+		</RollingFile>
+		<!-- network asyn -->
+		<!-- <Async name="Async" blocking="false" >
+	      <AppenderRef ref="flume" />
+	    </Async> -->
+	</Appenders>
+	
+	<Loggers>
+		<!-- setting -->
+		<logger name="com.apache.ibatis" level="DEBUG" additivity="true" />
+		<logger name="org.springframework" level="INFO" additivity="true" />
+		<logger name="com.google" level="INFO" additivity="true" />
+		<logger name="org.apache" level="INFO" additivity="true" />
+		<logger name="org.mortbay" level="DEBUG" additivity="true" />
+		<logger name="com.mchange" level="INFO" additivity="true" />
+		<!-- sql DEBUG -->
+		<logger name="org.mybatis" level="DEBUG" additivity="true" />
+				
+		<Root level="INFO">
+			<!-- <AppenderRef ref="Async" /> -->
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="RollingFile" />
+		</Root>
+	</Loggers>
+</Configuration>

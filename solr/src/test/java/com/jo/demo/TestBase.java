@@ -7,6 +7,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.jo.demo.redis.IRedisListService;
 import com.jo.demo.redis.IRedisStringService;
 import com.jo.demo.redis.RedisBaseService;
+import com.jo.demo.utils.ConfigUtils;
+import com.jo.demo.zookeeper.TaskLockUtils;
 
 public class TestBase {
 
@@ -21,6 +23,7 @@ public class TestBase {
 	@SuppressWarnings({ "resource" })
 	@Before
 	public void init() {
+		TaskLockUtils.init();
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		redisStringService = (IRedisStringService) context.getBean("redisStringService");
 		redisListService = (IRedisListService) context.getBean("redisListService");
