@@ -23,7 +23,7 @@ public class TestBase {
 	@SuppressWarnings({ "resource" })
 	@Before
 	public void init() {
-		TaskLockUtils.init();
+//		TaskLockUtils.init();
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		redisStringService = (IRedisStringService) context.getBean("redisStringService");
 		redisListService = (IRedisListService) context.getBean("redisListService");

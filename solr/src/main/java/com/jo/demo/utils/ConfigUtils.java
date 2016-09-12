@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
  */
 public enum ConfigUtils {
 	
-	REDIS("prop/redis/redis.properties"),ZK("prop/zk/zk.properties"),QUARTZ("prop/quartz/quartzConfig.properties");
+	CONFIG("prop/config.properties"),REDIS("prop/redis/redis.properties"),ZK("prop/zk/zk.properties"),QUARTZ("prop/quartz/quartzConfig.properties");
 	
 	private static final Logger logger = LoggerFactory.getLogger(ConfigUtils.class);
 	
