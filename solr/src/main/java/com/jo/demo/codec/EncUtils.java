@@ -1,4 +1,4 @@
-package com.jo.demo.enc;
+package com.jo.demo.codec;
 
 import org.apache.commons.codec.digest.DigestUtils;
 

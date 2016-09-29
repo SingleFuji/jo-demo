@@ -9,8 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ScanOptions;
 
 /**
  * redis处理类
@@ -51,6 +53,19 @@ public class RedisBaseService {
 					result.add(value);
 				}
 				return result;
+			}
+		});
+	}
+	
+	public List<byte[]> scan(final String sKey) {
+		logger.debug("LISTSIZE KEY:" + sKey);
+		return redisTemplate.execute(new RedisCallback<List<byte[]>>() {
+			@Override
+			public List<byte[]> doInRedis(RedisConnection connection) throws DataAccessException {
+				byte[] key = redisTemplate.getStringSerializer().serialize(sKey);
+				ScanOptions options = ScanOptions.scanOptions().match("sKey").build();
+				Cursor<byte[]> cursor = connection.scan(options);
+				return null;
 			}
 		});
 	}
