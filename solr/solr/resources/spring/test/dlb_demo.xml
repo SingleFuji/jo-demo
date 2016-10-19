@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root
+xmlns="http://www.w3school.com.cn"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.w3school.com.cn jlpay_third.xsd">
+	                       
+	<channel delete="false" channelNo="99997777" networkProtocol="01" post="false" 
+		dataStructure="json" rootNode="root" ip="${dlbUrl}" port="" path=""
+		sync="true">
+		<!-- 被扫 -->
+		<tradeType tradeType="303" operName="sendTrade"
+			networkProtocol="01" dataStructure="json" ip="" port="" post="true" 
+			path="${DLB_303_PATH}" sync="" cipherType="1">
+			<req dto="com.xinguodu.openplatform.tradeapp.common.dto.request.Request"
+				dataStructure="json">
+
+				<field from="body" to="agentNum">
+					<field from="extents">
+						<field from="stable">
+							<mapping from="default" to="10001074290163389363344" />
+						</field>
+					</field>
+				</field>
+				<field from="body" to="customerNum">
+					<field from="extents">
+						<field from="customerNum" />
+					</field>
+				</field>
+				<field from="body" to="authCode">
+					<field from="command">
+						<field from="qrCode"></field>
+					</field>
+				</field>
+				<field from="body" to="machineNum">
+					<field from="extents">
+						<field from="machineNum" />
+					</field>
+				</field>
+				<field from="body" to="shopNum">
+					<field from="extents">
+						<field from="shopNum" />
+					</field>
+				</field>
+
+				<field from="body" to="requestNum">
+					<field from="command">
+						<field from="refNo"></field>
+					</field>
+				</field>
+				<field from="body" to="amount">
+					<field from="command">
+						<field from="tradeAmount"></field>
+					</field>
+				</field>
+				<field from="body" to="source">
+					<field from="extents">
+						<field from="stable">
+							<mapping from="default" to="API" />
+						</field>
+					</field>
+				</field>
+
+			</req>
+			<resp
+				dto="com.xinguodu.openplatform.tradeapp.common.dto.response.Response">
+				<field from="result" to="body">
+					<field to="extents">
+						<field to="result"></field>
+					</field>
+				</field>
+				<field from="error" to="body">
+					<field from="errorCode" to="command">
+						<field to="retCode">
+							<mapping from="orderNotInit" to="TC" />
+							<mapping from="payResultError" to="TC" />
+							<mapping from="payRepeatRequest" to="TC" />
+							<mapping from="paySystemError" to="TC" />
+							<mapping from="machineNotExist" to="TC" />
+							<mapping from="shopNotExist" to="TC" />
+							<mapping from="shopIsClosed" to="TC" />
+							<mapping from="customerNotExist" to="TC" />
+							<mapping from="customerInvalid" to="TC" />
+							<mapping from="shopInvalid" to="TC" />
+							<mapping from="amountInvalid" to="TC" />
+							<mapping from="sourceInvalid" to="TC" />
+							<mapping from="ok" to="00" />
+						</field>
+					</field>
+				</field>
+				<field from="data" to="body">
+					<field from="message" to="extents">
+						<field to="respMsg">
+						</field>
+					</field>
+				</field>
+				<field from="error" to="body">
+					<field from="errorCode" to="command">
+						<field to="retDesc">
+							<mapping from="orderNotInit" to="订单未被创建，请确认订单" />
+							<mapping from="payResultError" to="支付返回有误" />
+							<mapping from="payRepeatRequest" to="支付重复请求" />
+							<mapping from="paySystemError" to="支付错误，请重新进行支付" />
+							<mapping from="machineNotExist" to="机具不存在，请确认机具号" />
+							<mapping from="shopNotExist" to="店铺不存在，请确认店铺" />
+							<mapping from="shopIsClosed" to="店铺已关闭，请确认店铺" />
+							<mapping from="customerNotExist" to="商户不存在请确认商户" />
+							<mapping from="customerInvalid" to="商户无效，请确认商户" />
+							<mapping from="shopInvalid" to="店铺无效，请确认店铺" />
+							<mapping from="amountInvalid" to="金额无效，请确认金额" />
+							<mapping from="sourceInvalid" to="来源无效，请确定来源" />
+							<mapping from="ok" to="交易成功" />
+						</field>
+					</field>
+				</field>
+			</resp>
+		</tradeType>
+		
+		<!-- 订单查询 -->
+		<tradeType tradeType="302" operName="sendTrade"
+			networkProtocol="01" dataStructure="json" ip="" port="" post="false"
+			path="${DLB_302_PATH}" sync="" cipherType="1">
+			<req dto="com.xinguodu.openplatform.tradeapp.common.dto.request.Request"
+				dataStructure="json">
+
+				<field from="body" to="agentNum">
+					<field from="extents">
+						<field from="stable">
+							<mapping from="default" to="10001074290163389363344" />
+						</field>
+					</field>
+				</field>
+				<field from="body" to="customerNum">
+					<field from="extents">
+						<field from="customerNum" />
+					</field>
+				</field>
+				<field from="body" to="shopNum">
+					<field from="extents">
+						<field from="shopNum" />
+					</field>
+				</field>
+
+				<field from="body" to="requestNum">
+					<field from="command">
+						<field from="queryCode"></field>
+					</field>
+				</field>
+			</req>
+			<resp
+				dto="com.xinguodu.openplatform.tradeapp.common.dto.response.Response">
+				<field from="result" to="body">
+					<field to="extents">
+						<field to="result"></field>
+					</field>
+				</field>
+				<field from="error" to="body">
+					<field from="errorCode" to="command">
+						<field to="retCode">
+							<mapping from="orderNotInit" to="TC" />
+							<mapping from="payResultError" to="TC" />
+							<mapping from="payRepeatRequest" to="TC" />
+							<mapping from="paySystemError" to="TC" />
+							<mapping from="machineNotExist" to="TC" />
+							<mapping from="shopNotExist" to="TC" />
+							<mapping from="shopIsClosed" to="TC" />
+							<mapping from="customerNotExist" to="TC" />
+							<mapping from="customerInvalid" to="TC" />
+							<mapping from="shopInvalid" to="TC" />
+							<mapping from="amountInvalid" to="TC" />
+							<mapping from="sourceInvalid" to="TC" />
+							<mapping from="ok" to="00" />
+						</field>
+					</field>
+				</field>
+				<field from="data" to="body">
+					<field from="message" to="extents">
+						<field to="respMsg">
+						</field>
+					</field>
+				</field>
+				<field from="data" to="body">
+					<field from="customerName" to="extents">
+						<field to="customerName">
+						</field>
+					</field>
+				</field>
+				<field from="data" to="body">
+					<field from="requestNum" to="extents">
+						<field to="requestNum">
+						</field>
+					</field>
+				</field>
+				<field from="data" to="body">
+					<field from="orderNum" to="extents">
+						<field to="orderNum">
+						</field>
+					</field>
+				</field>
+				<field from="data" to="body">
+					<field from="source" to="extents">
+						<field to="source">
+						</field>
+					</field>
+				</field>
+				<field from="data" to="body">
+					<field from="bussinessType" to="extents">
+						<field to="bussinessType">
+						</field>
+					</field>
+				</field>
+				<field from="data" to="body">
+					<field from="status" to="extents">
+						<field to="status">
+						</field>
+					</field>
+				</field>
+				<field from="data" to="body">
+					<field from="type" to="extents">
+						<field to="type">
+						</field>
+					</field>
+				</field>
+				<field from="data" to="body">
+					<field from="completeTime" to="extents">
+						<field to="completeTime">
+						</field>
+					</field>
+				</field>
+				<field from="data" to="body">
+					<field from="orderAmount" to="extents">
+						<field to="orderAmount">
+						</field>
+					</field>
+				</field>
+				<field from="data" to="body">
+					<field from="orderAmount" to="command">
+						<field to="tradeAmount">
+						</field>
+					</field>
+				</field>
+				
+				<field from="data" to="body">
+					<field from="refundTime" to="extents">
+						<field to="refundTime">
+						</field>
+					</field>
+				</field>
+				<field from="data" to="body">
+					<field from="payRecordList" to="extents">
+						<field to="payRecordList">
+						</field>
+					</field>
+				</field>
+				<field from="data" to="body">
+					<field to="extents">
+						<field to="third_data">
+						</field>
+					</field>
+				</field>
+				<field from="error" to="body">
+					<field from="errorMsg" to="command">
+						<field to="retDesc">
+							<mapping from="order not inited" to="订单未被创建，请确认订单" />
+							<mapping from="pay return result info error" to="支付返回有误" />
+							<mapping from="pay repeat request" to="支付重复请求" />
+							<mapping from="pay system error" to="支付错误，请重新进行支付" />
+							<mapping from="machine not exist" to="机具不存在，请确认机具号" />
+							<mapping from="shop not exist" to="店铺不存在，请确认店铺" />
+							<mapping from="shop is closed" to="店铺已关闭，请确认店铺" />
+							<mapping from="customer not exist" to="商户不存在请确认商户" />
+							<mapping from="customer invalid" to="商户无效，请确认商户" />
+							<mapping from="shop invalid" to="店铺无效，请确认店铺" />
+							<mapping from="amount invalid" to="金额无效，请确认金额" />
+							<mapping from="source invalid" to="来源无效，请确定来源" />
+							<mapping from="ok" to="交易成功" />
+						</field>
+					</field>
+				</field>
+			</resp>
+		</tradeType>
+		
+		<!-- 退款 -->
+		<tradeType tradeType="301" operName="sendTrade"
+			networkProtocol="01" dataStructure="json" ip="" port="" post="true" 
+			path="${DLB_301_PATH}" sync="" cipherType="1">
+			<req dto="com.xinguodu.openplatform.tradeapp.common.dto.request.Request"
+				dataStructure="json">
+
+				<field from="body" to="agentNum">
+					<field from="extents">
+						<field from="stable">
+							<mapping from="default" to="10001074290163389363344" />
+						</field>
+					</field>
+				</field>
+				<field from="body" to="customerNum">
+					<field from="extents">
+						<field from="customerNum" />
+					</field>
+				</field>
+				<field from="body" to="shopNum">
+					<field from="extents">
+						<field from="shopNum" />
+					</field>
+				</field>
+
+				<field from="body" to="requestNum">
+					<field from="command">
+						<field from="queryCode"></field>
+					</field>
+				</field>
+
+			</req>
+			<resp
+				dto="com.xinguodu.openplatform.tradeapp.common.dto.response.Response">
+				<field from="result" to="body">
+					<field to="extents">
+						<field to="result"></field>
+					</field>
+				</field>
+				<field from="error" to="body">
+					<field from="errorCode" to="command">
+						<field to="retCode">
+							<mapping from="paramsError" to="TR" />
+							<mapping from="customerNotExist" to="TR" />
+							<mapping from="shopNotExist" to="TR" />
+							<mapping from="orderNotExist" to="TR" />
+							<mapping from="orderHasNotPayRecord" to="TR" />
+							<mapping from="accountStatusError" to="TR" />
+							<mapping from="settleProcess" to="TR" />
+							<mapping from="notEnoughBlance" to="TR" />
+							<mapping from="accountOutRepeat" to="TR" />
+							<mapping from="orderIsRefund" to="TR" />
+							<mapping from="orderNotRefunding" to="TR" />
+							<mapping from="orderNotComplete" to="TR" />
+							<mapping from="ok" to="00" />
+						</field>
+					</field>
+				</field>
+				<field from="data" to="body">
+					<field from="orderNum" to="extents">
+						<field to="orderNum">
+						</field>
+					</field>
+				</field>
+<!-- 				<field from="data" to="body"> -->
+<!-- 					<field from="refundAmount" to="extents"> -->
+<!-- 						<field to="refundAmount"> -->
+<!-- 						</field> -->
+<!-- 					</field> -->
+<!-- 				</field> -->
+				
+				<field from="data" to="body">
+					<field from="refundAmount" to="command">
+						<field to="tradeAmount">
+						</field>
+					</field>
+				</field>
+				<field from="error" to="body">
+					<field from="errorCode" to="command">
+						<field to="retDesc">
+							<mapping from="paramsError" to="参数不正确" />
+							<mapping from="customerNotExist" to="商户不存在" />
+							<mapping from="shopNotExist" to="流水号无效，请确认流水号" />
+							<mapping from="orderNotExist" to="订单不存在" />
+							<mapping from="orderHasNotPayRecord" to="订单无支付记录" />
+							<mapping from="accountStatusError" to="账户状态错误" />
+							<mapping from="settleProcess" to="结算处理中" />
+							<mapping from="notEnoughBlance" to="账户余额不足" />
+							<mapping from="accountOutRepeat" to="重复出账" />
+							<mapping from="orderIsRefund" to="订单已退款" />
+							<mapping from="orderNotRefunding" to="订单不是退款中状态" />
+							<mapping from="orderNotComplete" to="订单未完成" />
+							<mapping from="ok" to="交易成功" />
+						</field>
+					</field>
+				</field>
+			</resp>
+		</tradeType>
+	</channel>
+</root>

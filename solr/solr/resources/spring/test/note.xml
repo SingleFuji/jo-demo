@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root
+xmlns="http://www.w3school.com.cn"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.w3school.com.cn jlpay_third.xsd">
+
+	<channel channelNo="" cipherType="1" delete="true" >
+		<type>
+			<req>
+				<field>
+					<field>
+						<mapping/>
+						<mapping/>
+					</field>
+					
+				</field>
+			</req>
+		</type>
+		<
+	</channel>
+</root>

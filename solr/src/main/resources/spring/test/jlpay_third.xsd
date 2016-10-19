@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.w3school.com.cn" xmlns="http://www.w3school.com.cn"
+	elementFormDefault="qualified">
+
+	<xs:element name="root">
+		<xs:annotation>
+			<xs:documentation>
+				<![CDATA[
+				根节点.
+				]]>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:all>
+				<xs:element ref="channel" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:all>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="channel">
+		<xs:annotation>
+			<xs:documentation>
+			对应渠道信息
+				<![CDATA[
+				对应渠道信息.
+				]]>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:all>
+				<xs:element ref="type" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:all>
+			<xs:attributeGroup ref="commonAttrGroup"/>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="type">
+		<xs:annotation>
+			<xs:documentation>
+			交易类型
+				<![CDATA[
+				交易类型.
+				]]>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="req" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="resp" minOccurs="1" maxOccurs="1"/>
+			</xs:sequence>
+			<xs:attributeGroup ref="typeAttrGroup" />
+		</xs:complexType>
+	</xs:element>
+
+
+	<xs:element name="req">
+		<xs:complexType>
+			<xs:all>
+				<xs:element ref="field" minOccurs="1" maxOccurs="unbounded" />
+			</xs:all>
+			<xs:attribute name="dto" type="dtoType" />
+			<xs:attribute name="dataStructure" type="dataStructureType"
+				default="json" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="resp">
+		<xs:complexType>
+			<xs:all>
+				<xs:element ref="field" minOccurs="1" maxOccurs="unbounded" />
+			</xs:all>
+			<xs:attribute name="dto" type="dtoType" />
+			<xs:attribute name="dataStructure" type="dataStructureType"
+				default="json" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="field">
+		<xs:complexType>
+			<xs:choice minOccurs="1" maxOccurs="1">
+				<xs:element ref="mapping" minOccurs="0" maxOccurs="unbounded" />
+				<xs:element ref="field" minOccurs="1" maxOccurs="1"/>
+			</xs:choice>
+			<xs:attributeGroup ref="mappingGroup"></xs:attributeGroup>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="mapping">
+		<xs:complexType>
+			<xs:attributeGroup ref="mappingGroup"></xs:attributeGroup>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:simpleType name="dataStructureType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="json" />
+			<xs:enumeration value="xml" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="dtoType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration
+				value="com.xinguodu.openplatform.tradeapp.common.dto.request.Request" />
+			<xs:enumeration
+				value="com.xinguodu.openplatform.tradeapp.common.dto.response.Response" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="networkProtoclType">
+		<xs:restriction base="xs:string">
+			<!-- -->
+			<xs:enumeration value="01" id="http" />
+			<!-- -->
+			<xs:enumeration value="02" id="webservice" />
+			<!-- -->
+			<xs:enumeration value="03" id="tcp" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="codecType">
+		<xs:restriction base="xs:string">
+			<!-- -->
+			<xs:enumeration value="1" id="base64" />
+			<!-- -->
+			<xs:enumeration value="2" id="md5" />
+			<!-- -->
+			<xs:enumeration value="3" id="mac" />
+			<xs:enumeration value="4" id="sha1" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="charsetType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="UTF-8" />
+			<xs:enumeration value="GBK" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:attributeGroup name="mappingGroup">
+		<xs:attribute name="from" type="xs:string" />
+		<xs:attribute name="to" type="xs:string" />
+	</xs:attributeGroup>
+
+	<xs:attributeGroup name="commonAttrGroup">
+		<xs:attribute name="delete" type="xs:boolean" default="false"/>
+		<xs:attribute name="channelNo" type="xs:string" />
+		<xs:attribute name="networkProtocol" type="networkProtoclType" >
+			<xs:annotation>
+			<xs:documentation>
+			通信协议 
+			01.HTTP
+			02.WEBSERVICE
+			03.TCP
+				<![CDATA[通信协议.]]>
+			</xs:documentation>
+		</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="dataStructure" type="dataStructureType" />
+		<xs:attribute name="ip" type="xs:string" />
+		<xs:attribute name="port" type="xs:string" />
+		<xs:attribute name="path" type="xs:string" />
+		<xs:attribute name="sync" type="xs:boolean" default="false"/>
+		<xs:attribute name="cipherType" type="codecType" />
+		<xs:attribute name="charsetName" type="charsetType" />
+		<xs:attribute name="post" type="xs:boolean" default="false"/>
+		<xs:attribute name="readPackLen" type="xs:int" />
+		<!-- xml类型映射 协议根节点 -->
+		<xs:attribute name="rootNode" type="xs:string" />
+	</xs:attributeGroup>
+
+	<xs:attributeGroup name="typeAttrGroup">
+		<xs:attributeGroup ref="commonAttrGroup" />
+		<xs:attribute name="tradeType" type="xs:string" />
+	</xs:attributeGroup>
+	<!-- "", "", "", "", "json", "", "", "", -->
+	<!-- "operName", "", "", "", "", "", "", "" -->
+</xs:schema>
