@@ -1,0 +1,5 @@
+class Syantax {
+    def a
+
+
+}
