@@ -31,4 +31,9 @@ Servers/
 *.war
 *.ear
 
+# Gradle #
+.gradle/
+*.bin
+*.lock
+
 
