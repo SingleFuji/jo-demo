@@ -33,6 +33,9 @@ Servers/
 
 # Gradle #
 .gradle/
+build/
+out/
+tmp/
 *.bin
 *.lock
 
